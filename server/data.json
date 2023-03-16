@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "title": "Harnoor Singh",
+      "price": 100,
+      "description": "Software Engineer | CS 2020",
+      "link": "https://www.linkedin.com/in/iharnoor",
+      "location": "Atlanta, Georgia, United States",
+      "userName": "ibrahim",
+      "id": 1
+    },
+    {
+      "title": "Clement Mihailescu",
+      "price": 100,
+      "description": "Co-Founder & CEO of AlgoExpert | Ex-Google & Ex-Facebook Software Engineer | LinkedIn Top Voice",
+      "link": "https://www.linkedin.com/in/clementmihailescu",
+      "location": "Las Vegas, Nevada, United States",
+      "userName": "ibrahim",
+      "id": 2
+    }
+  ]
+}
