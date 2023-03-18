@@ -11,8 +11,21 @@ export const InsertPeopleEvents = () => {
     async (book: Book, thunkAPI) => {
       const { dispatch } = thunkAPI;
       try {
-        const response = await fetch("http://127.0.0.1:5000/searchPeople");
-        const data = await response.json();
+        const payload = { situation:  book.description};
+        const url = 'http://127.0.0.1:5000/getCodes';
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        };
+
+        await fetch(url, options)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+        
         // Modify the book object with data from the API response
         // e.g., book.title = data.title;
         console.log(data);

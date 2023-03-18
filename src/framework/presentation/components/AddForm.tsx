@@ -1,7 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { InsertPeopleEvents } from "../viewmodel/events/GetPeopleEvents";
 import { InsertBookEvents } from "../viewmodel/events/InsertBookEvents";
+import BooksList from "./book/BooksList";
+import { JsonViewer } from '@textea/json-viewer'
 
 const AddForm = () => {
   const { isLoggedIn } = useAppSelector((state) => state.AuthSlice);
@@ -10,30 +12,38 @@ const AddForm = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
   const descRef = useRef<HTMLTextAreaElement>(null);
+  const [jsonDesc, setJsonDesc] = useState(null); 
 
-  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
-      titleRef.current?.checkValidity() &&
-      priceRef.current?.checkValidity() &&
       descRef.current?.checkValidity()
     ) {
-      dispatch(
-        InsertPeopleEvents().insertBookEvent({
-          title: titleRef.current.value,
-          price: +priceRef.current.value,
-          description: descRef.current.value
+      const payload = { situation:  descRef.current.value};
+      const url = 'http://127.0.0.1:5000/getCodes';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      };
+
+      await fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setJsonDesc(data)
         })
-      );
-      titleRef.current.value = "";
-      priceRef.current.value = "";
-      descRef.current.value = "";
+        .catch(error => console.error(error));
+      
+      //descRef.current.value = "";
     }
   };
 
   return (
     <div className="row">
-      <div className="col-6 offset-3 mt-3">
+      <div className="col mt-5">
         <h2>Patient Care Description</h2>
         <form onSubmit={formSubmit}>
         {/* <div className="form-group">
@@ -46,15 +56,6 @@ const AddForm = () => {
               required
             />
           </div>
-
-          Based on the information above, return a json object that answers the following fields:
-EM_Service_Levels: Determine the level(s) of E/M service
-EM_Codes: Find the appropriate E/M code(s)
-ICD-10-CM_Codes: Determine the diagnosis code(s) based on the ICD-10-CM codebook
-CPT_Codes:  Determine the procedure code(s) based on the CPT codebook
-expected output: {"EM_Service_Level": "",  "EM_Code": "", "ICD-10-CM_Code": "", "CPT_Codes": ""} 
-
-{"EM_Service_Levels": "99285, 99214",  "EM_Codes": "99285, 99214", "ICD-10-CM_Codes": "T25.3XXA, T20.2XXA", "CPT_Codes": "15002, 15003, 15004"}
 
           <div className="form-group">
             <label htmlFor="title">Job Title</label>
@@ -86,8 +87,9 @@ expected output: {"EM_Service_Level": "",  "EM_Code": "", "ICD-10-CM_Code": "", 
               required
             />
           </div> */}
+
           <div className="form-group">
-            <label htmlFor="Description">Description</label>
+            <label htmlFor="Description">EHR Data (up to 5,000 words)</label>
             <textarea
               className="form-control"
               id="description"
@@ -97,16 +99,39 @@ expected output: {"EM_Service_Level": "",  "EM_Code": "", "ICD-10-CM_Code": "", 
               ref={descRef}
             ></textarea>
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={!isLoggedIn}
-          >
-            Submit
-          </button>
+          <div className="row">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={!isLoggedIn}
+            >
+              Analyze
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary ml-2"
+              disabled={!isLoggedIn}
+            >
+              Get PHI 
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary ml-2"
+              disabled={!isLoggedIn}
+            >
+              Redact 
+            </button>
+          </div>
+          
         </form>
       </div>
+      <div className="col-5 mt-5 ">
+      {/* <BooksList /> */}
+      <JsonViewer value={jsonDesc}/>
     </div>
+      
+    </div>
+  
   );
 };
 
