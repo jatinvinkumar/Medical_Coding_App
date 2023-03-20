@@ -3,8 +3,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { JsonViewer } from '@textea/json-viewer'
 
 const AddForm = () => {
-  const { isLoggedIn } = useAppSelector((state) => state.AuthSlice);
-  const dispatch = useAppDispatch();
+  const isLoggedIn = true;
 
   const titleRef = useRef<HTMLInputElement>(null);
   const priceRef = useRef<HTMLInputElement>(null);
