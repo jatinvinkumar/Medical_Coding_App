@@ -1,8 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { InsertPeopleEvents } from "../viewmodel/events/GetPeopleEvents";
-import { InsertBookEvents } from "../viewmodel/events/InsertBookEvents";
-import BooksList from "./book/BooksList";
 import { JsonViewer } from '@textea/json-viewer'
 
 const AddForm = () => {
