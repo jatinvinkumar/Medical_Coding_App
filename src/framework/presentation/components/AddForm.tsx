@@ -20,7 +20,8 @@ const AddForm = () => {
       descRef.current?.checkValidity()
     ) {
       const payload = { situation:  descRef.current.value};
-      const url = 'http://127.0.0.1:5000/getCodes';
+      //const url = 'http://127.0.0.1:5000/getCodes';
+      const url = 'https://medcodeapi.herokuapp.com/getCodes';
       const options = {
         method: 'POST',
         headers: {
