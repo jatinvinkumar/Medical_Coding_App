@@ -25,6 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "copy-webpack-plugin": "^10.2.4",
+    "express": "^4.18.2",
     "framer-motion": "^6.3.0",
     "html-webpack-plugin": "^5.5.0",
     "react": "^18.0.0",
