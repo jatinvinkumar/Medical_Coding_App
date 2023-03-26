@@ -57,7 +57,7 @@ const BooksList = () => {
 
   return (
     <div>
-      <h2>Candidate List</h2>
+      <h2> List</h2>
       {isLoading ? "loading..." : <ul className="list-group">{bookList}</ul>}
     </div>
   );

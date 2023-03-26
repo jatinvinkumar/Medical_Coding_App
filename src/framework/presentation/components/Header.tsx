@@ -17,7 +17,7 @@ const Header = () => {
           className="btn btn-outline-primary"
           type="submit"
           onClick={() => {}}
-        >
+        > 
           {isLoggedIn ? "log Out" : "log In"}
         </button>
       </nav>

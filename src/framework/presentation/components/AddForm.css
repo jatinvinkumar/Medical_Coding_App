@@ -1,0 +1,56 @@
+.add-form-container {
+  margin-top: 5rem;
+}
+
+.add-form-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #163956;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: bold;
+  color: #163956;
+  margin-top: 1rem;
+}
+
+.form-control {
+  border: 1px solid #163956;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(22, 57, 86, 0.25);
+}
+
+.button-row {
+  margin-left: 0;
+}
+
+.btn-primary {
+  background-color: #163956;
+  border-color: #163956;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #0d2946;
+  border-color: #0d2946;
+}
+
+.btn-primary:disabled {
+  background-color: #16395697;
+  border-color: #16395600;
+}
+
+.dropdown-toggle-custom {
+  white-space: normal !important;
+}
+
+.dropdown-item-custom {
+  white-space: normal !important;
+}
+
+.dropdown-menu-custom {
+  min-width: 100%;
+}
