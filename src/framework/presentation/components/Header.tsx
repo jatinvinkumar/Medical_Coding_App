@@ -1,10 +1,14 @@
 import React from "react";
 import { logInOutEvent } from "../viewmodel/slices/AuthSlice";
+import { UserAuth } from "../../../firebase/AuthContext";
 
 const Header = () => {
   const isLoggedIn = true;
 
-  const handleLogInOut = () => {
+  const {logOut}  = UserAuth()
+
+  const handleLogOut = async () => {
+    await logOut()
   };
 
   return (
@@ -16,9 +20,9 @@ const Header = () => {
         <button
           className="btn btn-outline-primary"
           type="submit"
-          onClick={() => {}}
+          onClick={() => handleLogOut()}
         > 
-          {isLoggedIn ? "log Out" : "log In"}
+          {isLoggedIn ? "Log Out" : "log In"}
         </button>
       </nav>
     </>
