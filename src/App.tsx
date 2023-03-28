@@ -8,6 +8,9 @@ import BookContainer from './framework/presentation/components/book/BookContaine
 import Login from './framework/presentation/components/Login';
 import './framework/presentation/components/AddForm.css';
 import Signup from './framework/presentation/components/Signup';
+import './framework/presentation/components/AddForm.css';
+import { AuthContextProvider } from './firebase/AuthContext';
+import ProtectedRoute from './firebase/ProtectedRoute';
 
 const App = () => {
   const [apiCallsCount, setApiCallsCount] = useState(50);
@@ -49,19 +52,23 @@ const App = () => {
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={
-          <>
-            <Header />
-            {/* <SidePanel /> */}
-            <Container>
-                <AddForm />
-            </Container>
-            </>
-        } />
-      </Routes>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              {/* <SidePanel /> */}
+              <Header />
+              <Container>
+                  <AddForm />
+              </Container>
+            </ProtectedRoute>
+          } />
+          <Route path="terms" element={<p>Terms</p>} />
+          <Route path="privacy" element={<p>Privacy</p>} />
+        </Routes>
+      </AuthContextProvider>
     </Router>
   );
 };

@@ -1,21 +1,15 @@
 import React, { useState } from "react";
 import { logInOutEvent } from "../viewmodel/slices/AuthSlice";
 import "./Header.css";
+import { UserAuth } from "../../../firebase/AuthContext";
 
 const Header = () => {
   const isLoggedIn = true;
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const {logOut}  = UserAuth()
 
-  const handleLogInOut = () => {
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
+  const handleLogOut = async () => {
+    await logOut()
   };
 
   return (
@@ -26,9 +20,9 @@ const Header = () => {
         <button
           className="btn btn-outline-primary"
           type="submit"
-          onClick={handleLogInOut}
+          onClick={() => handleLogOut()}
         > 
-          {isLoggedIn ? "Log Out" : "Log In"}
+          {isLoggedIn ? "Log Out" : "log In"}
         </button>
         {/* <button
           className={`btn btn-outline-secondary`}

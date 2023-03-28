@@ -59,4 +59,20 @@
   .login-form button:hover {
     background-color: #0d2b4b;
   }
+
+  .signup-login {
+    text-align: center;
+    margin-top: 5px;
+    color: #163956;
+    cursor: pointer;
+    }
+    
+    .signup-login a {
+    color: #163956;
+    text-decoration: underline;
+    }
+    
+    .signup-login a:hover {
+    text-decoration: none;
+    }
   
