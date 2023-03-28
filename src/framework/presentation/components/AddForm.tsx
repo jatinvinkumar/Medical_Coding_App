@@ -33,11 +33,12 @@ const AddForm = () => {
       const payload = { situation: descRef.current.value };
   
       // Set the default URL for ICD-10 codes
-      let url = 'http://127.0.0.1:5000/getCodes';
+      let base_url = "https://medcodeapi.herokuapp.com"
+      let url = base_url + '/getCodes';
   
       // If the user selected the Get CPT Codes checkbox
       if (getCPT) {
-        url = 'http://127.0.0.1:5000/getCPTCodes';
+        url = base_url + '/getCPTCodes';
       }
   
       // If the user selected both checkboxes, show an error message
