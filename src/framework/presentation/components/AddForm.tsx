@@ -13,8 +13,9 @@ import {
   Spinner,
   Dropdown,
   Tabs,
-  Tab
+  Tab, Card, ListGroup
 } from 'react-bootstrap';
+import MedicalDataVisualization from './MedicalVisualizer';
 
 const AddForm = () => {
   const isLoggedIn = true;
@@ -23,7 +24,7 @@ const AddForm = () => {
   const [isLoading, setLoading] = useState(false);
   const [getICD10, setGetICD10] = useState(false);
   const [getCPT, setGetCPT] = useState(false);
-
+  const [chunkText, setChunkText] = useState(false);
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,32 +65,8 @@ const AddForm = () => {
         .finally(() => setLoading(false));
     }
   };
-  
 
-  const renderDropdowns = (json: any) => {
-    if (!json) return null;
   
-    const cptCodes = json.cpt_codes.map((code: any, index: number) => (
-      <Dropdown.Item key={`cpt-code-${index}`} className="text-wrap dropdown-item-custom">
-        <strong>CPT Code:</strong> {code.metadata["CPT Code"]}
-        <br />
-        <strong>Clinician Descriptor:</strong> {code.metadata["Clinician Descriptor"]}
-        <br />
-        <strong>Consumer Friendly Descriptor:</strong> {code.metadata["Consumer Friendly Descriptor"]}
-      </Dropdown.Item>
-    ));
-  
-    return (
-      <Dropdown>
-        <Dropdown.Toggle variant="outline-primary" id="situation-dropdown" className="text-wrap dropdown-toggle-custom">
-          {json.situation}
-        </Dropdown.Toggle>
-        <Dropdown.Menu className="dropdown-menu-custom">{cptCodes}</Dropdown.Menu>
-      </Dropdown>
-    );
-  };
-  
-
   return (
     <Container>
       <Row>
@@ -98,7 +75,7 @@ const AddForm = () => {
           <Form onSubmit={formSubmit}>
             <FormGroup>
               <FormLabel htmlFor="description">
-                Up to 28,000 characters
+                Up to 12,000 characters
               </FormLabel>
               <FormControl
                 as="textarea"
@@ -111,36 +88,51 @@ const AddForm = () => {
               />
             </FormGroup>
             <h5>Analysis Options</h5>
+            <Row>
+              <Col xs={12} md={6}>
+                <Form.Check
+                  type="checkbox"
+                  id="get-icd10"
+                  label="ICD-10 Codes [2021]"
+                  className="mb-2"
+                  onChange={(e) => setGetICD10(e.target.checked)}
+                />
+                <Form.Check
+                  type="checkbox"
+                  id="get-cpt"
+                  label="CPT/HCPCS1 Codes [2023]"
+                  className="mb-2"
+                  onChange={(e) => setGetCPT(e.target.checked)}
+                />
+              </Col>
+              <Col xs={12} md={6}>
+                <Form.Check
+                  type="checkbox"
+                  id="get-phi"
+                  label="Get PHI (coming soon)"
+                  className="mb-2"
+                  disabled
+                />
+                <Form.Check
+                  type="checkbox"
+                  id="redact"
+                  label="Redact (coming soon)"
+                  className="mb-3"
+                  disabled
+                />
+              </Col>
+            </Row>
+
+            <h5>Advanced Configuration</h5>
             <Form.Group>
             <Form.Check
               type="checkbox"
-              id="get-icd10"
-              label="Get ICD-10 Codes"
+              id="focus-text"
+              label="Focus Text"
               className="mb-2"
-              onChange={(e) => setGetICD10(e.target.checked)}
+              onChange={(e) => setChunkText(e.target.checked)}
             />
-            <Form.Check
-              type="checkbox"
-              id="get-cpt"
-              label="Get CPT Codes [2023]"
-              className="mb-2"
-              onChange={(e) => setGetCPT(e.target.checked)}
-            />
-              <Form.Check
-                type="checkbox"
-                id="get-phi"
-                label="Get PHI (coming soon)"
-                className="mb-2"
-                disabled
-              />
-              <Form.Check
-                type="checkbox"
-                id="redact"
-                label="Redact (coming soon)"
-                className="mb-3"
-                disabled
-              />
-            </Form.Group>
+              </Form.Group>
             <Button
               variant="primary"
               type="submit"
@@ -160,8 +152,13 @@ const AddForm = () => {
             <Tab eventKey="json-viewer" title="JSON Viewer">
               <JsonViewer value={jsonDesc} />
             </Tab>
-            <Tab eventKey="dropdowns" title="Dropdowns">
-              {renderDropdowns(jsonDesc)}
+            <Tab eventKey="icd" title="ICD-10">
+              {/* {renderDropdowns(jsonDesc)} */}
+              <MedicalDataVisualization data={jsonDesc} code_type="icd" />
+            </Tab>
+            <Tab eventKey="dropdowns" title="CPT/HCPCS1">
+              {/* {renderDropdowns(jsonDesc)} */}
+              <MedicalDataVisualization data={jsonDesc} code_type="cpt" />
             </Tab>
           </Tabs>
         </Col>

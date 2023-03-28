@@ -8,12 +8,15 @@ import BookContainer from './framework/presentation/components/book/BookContaine
 import Login from './framework/presentation/components/Login';
 import './framework/presentation/components/AddForm.css';
 import Signup from './framework/presentation/components/Signup';
-import './framework/presentation/components/AddForm.css';
 
 const App = () => {
   const [apiCallsCount, setApiCallsCount] = useState(50);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // ... your existing SidePanel component
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+  
   const SidePanel = () => {
     const progressBarPercentage = (apiCallsCount / 100) * 100;
     
@@ -51,8 +54,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/" element={
           <>
-            {/* <SidePanel /> */}
             <Header />
+            {/* <SidePanel /> */}
             <Container>
                 <AddForm />
             </Container>
