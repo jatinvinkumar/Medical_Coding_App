@@ -24,27 +24,7 @@ const Header = () => {
         > 
           {isLoggedIn ? "Log Out" : "log In"}
         </button>
-        {/* <button
-          className={`btn btn-outline-secondary`}
-          onClick={toggleSidebar}
-        >
-          {sidebarOpen ? "Close" : "Menu"}
-        </button> */}
       </nav>
-
-      {/* <div
-        className={`sidebar`}
-        style={{left: sidebarOpen ? '0' : '-200px'}}
-      >
-        <a
-          href="javascript:void(0)"
-          className={`closebtn`}
-          onClick={closeSidebar}
-        >
-          &times;
-        </a>
-        <div className={`helloWorld`}>Hello World</div>
-      </div> */}
     </>
   );
 };

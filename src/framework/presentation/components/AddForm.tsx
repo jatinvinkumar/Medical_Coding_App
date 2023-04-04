@@ -22,31 +22,21 @@ const AddForm = () => {
   const descRef = useRef<HTMLTextAreaElement>(null);
   const [jsonDesc, setJsonDesc] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [getICD10, setGetICD10] = useState(false);
-  const [getCPT, setGetCPT] = useState(false);
-  const [chunkText, setChunkText] = useState(false);
+  const [getICD10, setGetICD10] = useState(true);
+  const [getCPT, setGetCPT] = useState(true);
+  const [focusText, setFocusText] = useState(true);
 
   const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     if (descRef.current?.checkValidity()) {
-      const payload = { situation: descRef.current.value };
+      const payload = { situation: descRef.current.value, options: {icd: getICD10, cpt: getCPT, focusText: focusText} };
   
       // Set the default URL for ICD-10 codes
       let base_url = "https://medcodeapi.herokuapp.com"
+      // let base_url = "http://localhost:5000"
       let url = base_url + '/getCodes';
-  
-      // If the user selected the Get CPT Codes checkbox
-      if (getCPT) {
-        url = base_url + '/getCPTCodes';
-      }
-  
-      // If the user selected both checkboxes, show an error message
-      if (getICD10 && getCPT) {
-        alert('Please select only one option: ICD-10 or CPT Codes');
-        setLoading(false);
-        return;
-      }
+
   
       const options = {
         method: 'POST',
@@ -67,6 +57,28 @@ const AddForm = () => {
     }
   };
 
+  const getRandomSituation = async () => {
+    let base_url = "https://medcodeapi.herokuapp.com"
+    // let base_url = "http://localhost:5000";
+    let url = base_url + '/getRandomSituation';
+
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    await fetch(url, options)
+      .then((response) => response.json())
+      .then((data) => {
+        if (descRef.current) {
+          descRef.current.value = data.situation;
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   
   return (
     <Container>
@@ -75,6 +87,15 @@ const AddForm = () => {
           <h2>Patient Care Description</h2>
           <Form onSubmit={formSubmit}>
             <FormGroup>
+              <Button
+                variant="primary"
+                
+                className="mb-2"
+                onClick={getRandomSituation}
+              >
+                Geneate Example Situation
+              </Button>
+              <br />
               <FormLabel htmlFor="description">
                 Up to 12,000 characters
               </FormLabel>
@@ -96,6 +117,7 @@ const AddForm = () => {
                   id="get-icd10"
                   label="ICD-10 Codes [2021]"
                   className="mb-2"
+                  defaultChecked
                   onChange={(e) => setGetICD10(e.target.checked)}
                 />
                 <Form.Check
@@ -103,6 +125,7 @@ const AddForm = () => {
                   id="get-cpt"
                   label="CPT/HCPCS1 Codes [2023]"
                   className="mb-2"
+                  defaultChecked
                   onChange={(e) => setGetCPT(e.target.checked)}
                 />
               </Col>
@@ -131,7 +154,8 @@ const AddForm = () => {
               id="focus-text"
               label="Focus Text"
               className="mb-2"
-              onChange={(e) => setChunkText(e.target.checked)}
+              defaultChecked
+              onChange={(e) => setFocusText(e.target.checked)}
             />
               </Form.Group>
             <Button
