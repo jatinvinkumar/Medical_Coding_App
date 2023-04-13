@@ -13,15 +13,20 @@ import {
   Spinner,
   Dropdown,
   Tabs,
-  Tab, Card, ListGroup
+  Tab, Card, ListGroup, Nav, ProgressBar,
+  NavItem, NavLink, ListGroupItem
 } from 'react-bootstrap';
 import MedicalDataVisualization from './MedicalVisualizer';
+import { FaCog, FaPlay, FaRegChartBar, FaRegCheckCircle } from 'react-icons/fa';
+import MedicineAIAnimation from './MedicineAIAnimation';
 
 const AddForm = () => {
   const isLoggedIn = true;
   const descRef = useRef<HTMLTextAreaElement>(null);
   const [jsonDesc, setJsonDesc] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const [currentUsage, setCurrentUsage] = useState(0);
+  const [maxUsage, setMaxUsage] = useState(10);
   const [getICD10, setGetICD10] = useState(true);
   const [getCPT, setGetCPT] = useState(true);
   const [focusText, setFocusText] = useState(true);
@@ -33,11 +38,9 @@ const AddForm = () => {
       const payload = { situation: descRef.current.value, options: {icd: getICD10, cpt: getCPT, focusText: focusText} };
   
       // Set the default URL for ICD-10 codes
-      let base_url = "https://medcodeapi.herokuapp.com"
-      // let base_url = "http://localhost:5000"
+      // let base_url = "https://medcodeapi.herokuapp.com"
+      let base_url = "http://localhost:5000"
       let url = base_url + '/getCodes';
-
-  
       const options = {
         method: 'POST',
         headers: {
@@ -78,12 +81,12 @@ const AddForm = () => {
       })
       .catch((error) => console.error(error));
   };
+  
 
   
   return (
-    <Container>
       <Row>
-        <Col xs={12} md={7} className="mt-5">
+        <Col xs={12} md={5} className="mt-5">
           <h2>Patient Care Description</h2>
           <Form onSubmit={formSubmit}>
             <FormGroup>
@@ -172,23 +175,28 @@ const AddForm = () => {
             </Button>
           </Form>
         </Col>
-        <Col xs={12} md={5} className="mt-5">
-          <Tabs defaultActiveKey="json-viewer" id="json-tabs">
-            <Tab eventKey="json-viewer" title="JSON Viewer">
+        <Col xs={12} md={5} className="mt-5" style={{width: "100%",}}>
+        {jsonDesc === null ? (
+              <div className='view-container' style={{ width: "100%", position: "relative" }}>
+                <MedicineAIAnimation />
+              </div>
+            ) : (
+              <Tabs defaultActiveKey="json-viewer" id="json-tabs">
+              <Tab eventKey="json-viewer" className='view-container' title="JSON Viewer">
               <JsonViewer value={jsonDesc} />
-            </Tab>
-            <Tab eventKey="icd" title="ICD-10">
-              {/* {renderDropdowns(jsonDesc)} */}
-              <MedicalDataVisualization data={jsonDesc} code_type="icd" />
-            </Tab>
-            <Tab eventKey="dropdowns" title="CPT/HCPCS1">
-              {/* {renderDropdowns(jsonDesc)} */}
-              <MedicalDataVisualization data={jsonDesc} code_type="cpt" />
-            </Tab>
-          </Tabs>
+              </Tab>
+              <Tab className='view-container' eventKey="icd" title="ICD-10">
+                {/* {renderDropdowns(jsonDesc)} */}
+                <MedicalDataVisualization data={jsonDesc} code_type="icd" />
+              </Tab>
+              <Tab className='view-container' eventKey="dropdowns" title="CPT/HCPCS1">
+                {/* {renderDropdowns(jsonDesc)} */}
+                <MedicalDataVisualization data={jsonDesc} code_type="cpt" />
+              </Tab>
+              </Tabs>
+            )}
         </Col>
       </Row>
-    </Container>
   );
   
 };

@@ -1,0 +1,17 @@
+.custom-card-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.12);
+  }
+
+  .flat-text-box {
+    background-color: white;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .rounded-button {
+    border-radius: 50px;
+    background-color: #4852dd;
+    border: none;
+    color: white;
+    font-weight: bold;
+  }

@@ -1,0 +1,65 @@
+{
+    "zip_code": "78705",
+    "cpt_codes": [
+        {
+            "cpt_code": "10040",
+            "clinical_description": "Acne surgery, removal of single cyst or comedo",
+            "consumer_description": "Acne cyst or blackhead removal",
+            "billed_charge": "100",
+            "average_insured_price": "70",
+            "average_uninsured_price": "90",
+            "incorrect_code": "yes",
+            "incorrect_code_reason": "The EMR system misclassified the procedure"
+        },
+        {
+            "cpt_code": "99213",
+            "clinical_description": "Office or other outpatient visit for the evaluation and management of an established patient",
+            "consumer_description": "Routine office visit for existing patients",
+            "billed_charge": "120",
+            "average_insured_price": "85",
+            "average_uninsured_price": "110",
+            "incorrect_code": "no",
+            "incorrect_code_reason": ""
+        },
+        {
+            "cpt_code": "90658",
+            "clinical_description": "Influenza virus vaccine, trivalent, split virus, preservative free, when administered to individuals 3 years of age and older",
+            "consumer_description": "Flu shot for ages 3 and older, preservative free",
+            "billed_charge": "40",
+            "average_insured_price": "30",
+            "average_uninsured_price": "35",
+            "incorrect_code": "no",
+            "incorrect_code_reason": ""
+        },
+        {
+            "cpt_code": "90715",
+            "clinical_description": "Tdap vaccine for adolescents and adults, intramuscular",
+            "consumer_description": "Tetanus, diphtheria, and pertussis (whooping cough) vaccine for adolescents and adults",
+            "billed_charge": "60",
+            "average_insured_price": "45",
+            "average_uninsured_price": "55",
+            "incorrect_code": "no",
+            "incorrect_code_reason": ""
+        },
+        {
+            "cpt_code": "93306",
+            "clinical_description": "Echocardiography, transthoracic, real-time with image documentation (2D), includes M-mode recording, when performed, complete, with spectral Doppler echocardiography, and with color flow Doppler echocardiography",
+            "consumer_description": "Heart ultrasound with Doppler and color flow imaging",
+            "billed_charge": "1000",
+            "average_insured_price": "700",
+            "average_uninsured_price": "900",
+            "incorrect_code": "no",
+            "incorrect_code_reason": ""
+        },
+        {
+            "cpt_code": "81003",
+            "clinical_description": "Urinalysis, by dip stick or tablet reagent for bilirubin, glucose, hemoglobin, ketones, leukocytes, nitrite, pH, protein, specific gravity, urobilinogen, any number of these constituents; automated, without microscopy",
+            "consumer_description": "Automated urinalysis without microscopic examination",
+            "billed_charge": "25",
+            "average_insured_price": "18",
+            "average_uninsured_price": "22",
+            "incorrect_code": "no",
+            "incorrect_code_reason": ""
+        }
+    ]
+}
